@@ -5,8 +5,6 @@ class Timer:
         self.name = name
         self.start_time = 0
         self.elapsed_time = 0
-        self.final_time = 0
-        self.current_time = 0
 
     def start(self):
         self.start_time = time.time_ns()
@@ -19,15 +17,12 @@ class Timer:
             self.elapsed_time = self.elapsed_time + (time.time_ns() - self.start_time)
         
     def print_final_time(self):
-        self.final_time = self.elapsed_time / 1000000000
-        print("Final timer: {:0.2f}".format(self.final_time),"seconds\n")
+        print("Final timer: {:0.2f}".format(self.elapsed_time / 1000000000),"seconds\n")
 
     def print_current_time(self):
-        self.current_time = (self.elapsed_time + (time.time_ns() - self.start_time)) / 1000000000
-        print("Current timer: {:0.2f}".format(self.current_time),"seconds\n")
+        print("Current timer: {:0.2f}".format((self.elapsed_time + (time.time_ns() - self.start_time)) / 1000000000),"seconds\n")
 
     def reset(self):
-        self.start_time = time.time_ns()
         self.elapsed_time = 0
 
 

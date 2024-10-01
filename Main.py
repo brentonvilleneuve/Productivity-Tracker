@@ -4,24 +4,47 @@ class Timer:
     def __init__(self,name):
         self.name = name
         self.start_time = 0
+        self.elapsed_time = 0
         self.final_time = 0
+        self.current_time = 0
 
     def start(self):
         self.start_time = time.time_ns()
         print("Timer has been started\n")
 
-    def stop(self):
+    def pause(self):
         if self.start_time == 0:
             print("You didn't start a timer yet\n")
         else:
-            self.final_time = (time.time_ns()-self.start_time)/1000000000
-            print("Timer length: ",self.final_time,"seconds\n")
+            self.elapsed_time = self.elapsed_time + (time.time_ns() - self.start_time)
+        
+    def print_final_time(self):
+        self.final_time = self.elapsed_time / 1000000000
+        print("Final timer: {:0.2f}".format(self.final_time),"seconds\n")
+
+    def print_current_time(self):
+        self.current_time = (self.elapsed_time + (time.time_ns() - self.start_time)) / 1000000000
+        print("Current timer: {:0.2f}".format(self.current_time),"seconds\n")
+
+    def reset(self):
+        self.start_time = time.time_ns()
+        self.elapsed_time = 0
 
 
 t1 = Timer("First Timer")
 
+print("Name of timer: {}\n".format(t1.name))
+
 instruction = input("Press enter to start timer\n")
 t1.start()
 
+instruction = input("Press enter to print current timer\n")
+t1.print_current_time()
+
 instruction = input("Press enter to stop timer\n")
-t1.stop()
+t1.pause()
+
+instruction = input("Press enter to print final timer\n")
+t1.print_final_time()
+
+
